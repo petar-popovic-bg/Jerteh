@@ -25,5 +25,4 @@ This is a python package of tools used for Jerteh text processing and compiling 
 
   
 ## Instructions
-Using **TreeTagger** class requires treetagger to be installed on your machine.
-Using **Unitex** class requires Unitex-Gramlab to be installed on your machine.
+Using **TreeTagger** and **Unitex** classes requires [TreeTagger](https://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/) and [Unitex](https://unitexgramlab.org/) to be installed on your machine.
