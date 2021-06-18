@@ -12,9 +12,6 @@ This is a python package of tools used for Jerteh text processing and compiling 
     ('serbian-cyr', 'sr-cyr')]:
     ls = g_langsupport[lang] = copy.deepcopy(g_langsupport['__base__'])
     ...
-  ```
-  ```python
-    ...
     g_langsupport['sk']['dummysentence'] = 'To je koniec . .'
     g_langsupport['sw']['dummysentence'] = 'Hii ni mwisho . .'
     g_langsupport['sr-lat']['dummysentence'] = 'Ovo je kraj . .'
