@@ -1,7 +1,7 @@
 # Jerteh
 This is a python package of tools used for Jerteh text processing and compiling vertical files for NoSketch Engine
 
-# Installation
+###### Installation
 1. pip: <code>pip install -e git+https://github.com/petar-popovic-bg/Jerteh.git#egg=Jerteh</code>
 2. Edit your treetaggerwrapper.py file so the wrapper supports Serbian-latin and Serbian-cyrillic
 ```python
