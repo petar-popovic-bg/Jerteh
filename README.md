@@ -10,14 +10,14 @@ This package provides utility classes and static methods for Python that make us
       ...
       ('slovak', 'sk'),
       ('swahili', 'sw'),
-      <mark>('serbian-lat', 'sr-lat'),
-      ('serbian-cyr', 'sr-cyr')</mark>]:
+      ('serbian-lat', 'sr-lat'),
+      ('serbian-cyr', 'sr-cyr')]:
       ls = g_langsupport[lang] = copy.deepcopy(g_langsupport['__base__'])
       ...
       g_langsupport['sk']['dummysentence'] = 'To je koniec . .'
       g_langsupport['sw']['dummysentence'] = 'Hii ni mwisho . .'
-      <mark>g_langsupport['sr-lat']['dummysentence'] = 'Ovo je kraj . .'
-      g_langsupport['sr-cyr']['dummysentence'] = 'Ово је крај . .'</mark>
+      g_langsupport['sr-lat']['dummysentence'] = 'Ovo je kraj . .'
+      g_langsupport['sr-cyr']['dummysentence'] = 'Ово је крај . .'
       ...
     ```
 
