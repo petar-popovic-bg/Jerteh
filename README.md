@@ -3,7 +3,8 @@ This is a python package of tools used for Jerteh text processing and compiling 
 
 ## Installation
 ###### Linux
-1. pip: <code>pip install -e git+https://github.com/petar-popovic-bg/Jerteh.git#egg=Jerteh</code>
+1. pip: `pip install -e git+https://github.com/petar-popovic-bg/Jerteh.git#egg=Jerteh`
+
 2. Edit your *treetaggerwrapper.py* file inside your virtual environment so the wrapper supports Serbian-latin and Serbian-cyrillic
     ```python
       ...
@@ -19,8 +20,7 @@ This is a python package of tools used for Jerteh text processing and compiling 
       g_langsupport['sr-cyr']['dummysentence'] = 'Ово је крај . .'
       ...
     ```
-3. Edit *configure.py* so it points to your local installations of TreeTagger and Unitex
 
-  
+3. Edit *configure.py* so it points to your local installations of TreeTagger and Unitex
 ## Instructions
 Using **TreeTagger** and **Unitex** classes requires [TreeTagger](https://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/) and [Unitex](https://unitexgramlab.org/) to be installed on your machine.
