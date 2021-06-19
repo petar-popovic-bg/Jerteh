@@ -1,5 +1,5 @@
 # Jerteh
-This package provides utility classes and static methods for Python that make use of different third party software commonly used in text processing such as: [Unitex](https://unitexgramlab.org/), [TreeTagger](https://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/), [Apache-Tika](https://tika.apache.org/) and [Google-Tesseract](https://opensource.google/projects/tesseract). 
+This package provides utility classes and static methods for Python that make use of different third party software commonly used in text processing such as: [Unitex-GramLab](https://unitexgramlab.org/), [TreeTagger](https://www.cis.uni-muenchen.de/~schmid/tools/TreeTagger/), [Apache-Tika](https://tika.apache.org/) and [Google-Tesseract](https://opensource.google/projects/tesseract). 
 
 ## Installation
 ###### Linux
