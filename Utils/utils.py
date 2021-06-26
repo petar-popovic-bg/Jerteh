@@ -1,11 +1,12 @@
 # Common usecase utils
 import os
 import shutil
+import csv
 
 
 def get_files_from_dir(dir_path, recursion=False, filter_ext=None):
     """
-    Returns the list of files in directory. For digging into subfolders use recursion param.
+    Returns the list of filepaths in directory. For digging into subfolders use recursion param.
 
     :param dir_path: string (abs path to dir)
     :param recursion: bool (default: False)
@@ -74,3 +75,17 @@ def extract_files(src_dir_path, dst_dir_path, filter_ext=None, recursion=False):
         shutil.copyfile(file, os.path.join(dst_dir_path, filename))
 
     return True
+
+
+def csv_to_dict(csv_file, delimiter='\t'):
+    """
+    Returns list of dictionaries (keys from header, values from rows).
+
+    :param csv_file: string (path to csv file)
+    :param delimiter: string (collumn delimiter, tab default)
+    :return: list[dic]
+    """
+    with open(csv_file, 'r', encoding='utf-8') as f:
+        meta = [{k: v for k, v in row.items()} for row in csv.DictReader(f, delimiter=delimiter)]
+
+    return meta
