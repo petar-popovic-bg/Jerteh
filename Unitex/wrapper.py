@@ -77,15 +77,6 @@ class Unitex:
                                                                                              self.UNITEX_DIR, self.lang,
                                                                                              snt_dir, snt_dir))
         if self.lang == 'Serbian-Latin':
-            # os.system('%s/App/UnitexToolLogger Dico -t%s -a%s/%s/Alphabet.txt %s/%s/Dela/latdelaf-SrpskiU.bin '
-            #           '%s/%s/Dela/latDelacf-SrpskiU.bin %s/%s/Dela/latDelacf-NepromU.bin %s/%s/Dela/NewBrojSlovima.'
-            #           'fst2 %s/%s/Dela/NewBrojSlovima_norm-z.fst2 -qutf8-no-bom' % (self.UNITEX_DIR, self.snt_f,
-            #                                                                         self.UNITEX_DIR, self.lang,
-            #                                                                         self.UNITEX_DIR, self.lang,
-            #                                                                         self.UNITEX_DIR, self.lang,
-            #                                                                         self.UNITEX_DIR, self.lang,
-            #                                                                         self.UNITEX_DIR, self.lang,
-            #                                                                         self.UNITEX_DIR, self.lang))
             os.system('%s/App/UnitexToolLogger Dico -t"%s" -a"%s/%s/Alphabet.txt" %s "%s/%s/Dela/NewBrojSlovima.'
                       'fst2" "%s/%s/Dela/NewBrojSlovima_norm-z.fst2" -qutf8-no-bom' % (self.UNITEX_DIR, snt_f,
                                                                                        self.UNITEX_DIR, self.lang,
@@ -93,15 +84,6 @@ class Unitex:
                                                                                        self.UNITEX_DIR, self.lang,
                                                                                        self.UNITEX_DIR, self.lang))
         elif self.lang == 'Serbian-Cyrillic':
-            # os.system('%s/App/UnitexToolLogger Dico -t%s -a%s/%s/Alphabet.txt %s/%s/Dela/cirdelaf-SrpskiU.bin '
-            #           '%s/%s/Dela/cirDelacf-SrpskiU.bin %s/%s/Dela/cirDelacf-NepromU.bin %s/%s/Dela/NewBrojSlovima.'
-            #           'fst2 %s/%s/Dela/NewBrojSlovima_norm-z.fst2 -qutf8-no-bom' % (self.UNITEX_DIR, self.snt_f,
-            #                                                                         self.UNITEX_DIR, self.lang,
-            #                                                                         self.UNITEX_DIR, self.lang,
-            #                                                                         self.UNITEX_DIR, self.lang,
-            #                                                                         self.UNITEX_DIR, self.lang,
-            #                                                                         self.UNITEX_DIR, self.lang,
-            #                                                                         self.UNITEX_DIR, self.lang))
             os.system('%s/App/UnitexToolLogger Dico -t"%s" -a"%s/%s/Alphabet.txt" %s "%s/%s/Dela/NewBrojSlovima.'
                       'fst2" "%s/%s/Dela/NewBrojSlovima_norm-z.fst2" -qutf8-no-bom' % (self.UNITEX_DIR, snt_f,
                                                                                        self.UNITEX_DIR, self.lang,
@@ -157,39 +139,24 @@ class Unitex:
         _filepath, file_extension = os.path.splitext(file)
         snt_dir = _filepath + '_snt'
         snt_f = _filepath + '.snt'
-        # "/home/petar/Unitex-GramLab-3.2/App/UnitexToolLogger" Normalize "/home/petar/Desktop/uplaodme.txt" "-r/home/p
-        # etar/workspace/Unitex-GramLab/Unitex/Serbian-Latin/Norm.txt" "--output_offsets=/home/petar/Desktop/uplaodme_s
-        # nt/normalize.out.offsets" -qutf8-no-bom
+
         os.system('%s/App/UnitexToolLogger Normalize "%s" -r"%s/%s/Norm.txt" --output_offsets="%s/normalize.out.offsets'
                   '" -qutf-no-bom' % (self.UNITEX_DIR, file, self.UNITEX_DIR, self.lang, snt_dir))
-        # "/home/petar/Unitex-GramLab-3.2/App/UnitexToolLogger" Fst2Txt "-t/home/petar/Desktop/uplaodme.snt" "/home/pet
-        # ar/Unitex-GramLab-3.2/Serbian-Latin/Graphs/Preprocessing/Sentence/Sentence-xml-ELTeC.fst2" "-a/home/petar/wor
-        # kspace/Unitex-GramLab/Unitex/Serbian-Latin/Alphabet.txt" -M "--input_offsets=/home/petar/Desktop/uplaodme_snt
-        # /normalize.out.offsets" "--output_offsets=/home/petar/Desktop/uplaodme_snt/normalize.out.offsets" -qutf8-no-b
-        # om
+
         os.system('%s/App/UnitexToolLogger Fst2Txt -t"%s" "%s/%s/Graphs/Preprocessing/Sentence/Sentence-xml-ELTeC.fst2"'
                   ' -a"%s/%s/Alphabet.txt" -M --input_offsets="%s/normalize.out.offsets" --output_offsets="%s/normalize'
                   '.out.offsets" -qutf8-no-bom' % (self.UNITEX_DIR, file, self.UNITEX_DIR, self.lang, self.UNITEX_DIR,
                                                    self.lang, snt_dir, snt_dir))
-        # "/home/petar/Unitex-GramLab-3.2/App/UnitexToolLogger" Grf2Fst2 "/home/petar/workspace/Unitex-GramLab/Unitex/S
-        # erbian-Latin/Graphs/Preprocessing/Replace/Replace.grf" -y "--alphabet=/home/petar/workspace/Unitex-GramLab/Un
-        # itex/Serbian-Latin/Alphabet.txt" -qutf8-no-bom
+
         os.system('%s/App/UnitexToolLogger Grf2Fst2 "%s/%s/Graphs/Preprocessing/Replace/Replace.grf" -y --alphabet="%s'
                   '/%s/Alphabet.txt" -qutf8-no-bom' % (self.UNITEX_DIR, self.UNITEX_DIR, self.lang, self.UNITEX_DIR,
                                                        self.lang))
-        # "/home/petar/Unitex-GramLab-3.2/App/UnitexToolLogger" Fst2Txt "-t/home/petar/Desktop/uplaodme.snt" "/home/pet
-        # ar/workspace/Unitex-GramLab/Unitex/Serbian-Latin/Graphs/Preprocessing/Replace/Replace.fst2" "-a/home/petar/wo
-        # rkspace/Unitex-GramLab/Unitex/Serbian-Latin/Alphabet.txt" -R "--input_offsets=/home/petar/Desktop/uplaodme_sn
-        # t/normalize.out.offsets" "--output_offsets=/home/petar/Desktop/uplaodme_snt/normalize.out.offsets" -qutf8-no-
-        # bom
+
         os.system('%s/App/UnitexToolLogger Fst2Grf2 -t"%s" "%s/%s/Graphs/Preprocessing/Replace/Replace.fst2" -a"%s/%s/'
                   'Aplhabet.txt" -R --input_offsets="%s/normalize.out.offsets" --output_offsets="%s/normalize.out.'
                   'offsets" -qutf8-no-bom' % (self.UNITEX_DIR, file, self.UNITEX_DIR, self.lang, self.UNITEX_DIR,
                                               self.lang, snt_dir, snt_dir))
-        # "/home/petar/Unitex-GramLab-3.2/App/UnitexToolLogger" Tokenize "/home/petar/Desktop/uplaodme.snt" "-a/home/pe
-        # tar/workspace/Unitex-GramLab/Unitex/Serbian-Latin/Alphabet.txt" "--input_offsets=/home/petar/Desktop/uplaodme
-        # _snt/normalize.out.offsets" "--output_offsets=/home/petar/Desktop/uplaodme_snt/tokenize.out.offsets" -qutf8-n
-        # o-bom
+
         os.system('%s/App/UnitexToolLogger Tokenize "%s" -a"%s/%s/Alphabet.txt" --input_offsets="%s/normalize.out.'
                   'offsets" --output_offsets="%s/tokenize.out.offsets" -qutf8-no-bom' % (self.UNITEX_DIR, snt_f,
                                                                                          self.UNITEX_DIR, self.lang,
