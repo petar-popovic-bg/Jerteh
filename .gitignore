@@ -1,7 +1,4 @@
 # Project exclude paths
 /venv/
 /token.txt
-/temp.txt
-/mock_corpus.tt
-/test dir/
 /test.py
