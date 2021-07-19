@@ -1,2 +1,4 @@
 six==1.16.0
 treetaggerwrapper==2.3
+tika~=1.24
+setuptools~=57.0.0
