@@ -24,17 +24,35 @@ def convert(text, ctype, direction=""):
     """
     dic = {}
     if ctype == 'YUSCLATtoLAT':
-        dic = {'~': 'č',
-               '}': 'ć',
-               '{': 'š',
-               '`': 'ž',
-               '|': 'đ',
-               '^': 'Č',
-               ']': 'Ć',
-               '[': 'Š',
-               '@': 'Ž',
-               '\\': 'Đ'
-               }
+        dic = {
+            '~': 'č',
+            '}': 'ć',
+            '{': 'š',
+            '`': 'ž',
+            '|': 'đ',
+            '^': 'Č',
+            ']': 'Ć',
+            '[': 'Š',
+            '@': 'Ž',
+            '\\': 'Đ'
+        }
+    if ctype == 'YUSCCYRtoLAT':
+        dic = {
+            '~': 'č',
+            '}': 'ć',
+            '{': 'š',
+            '`': 'ž',
+            '|': 'đ',
+            '^': 'Č',
+            ']': 'Ć',
+            '[': 'Š',
+            '@': 'Ž',
+            '\\': 'Đ',
+            'w': 'nj',
+            'W': 'Nj',
+            'q': 'lj',
+            'Q': 'Lj'
+        }
     if ctype == 'LATtoASC':
         dic = {
             'Dž': 'Dy',
@@ -716,24 +734,53 @@ def lat_to_asc(text):
     return text
 
 
-def yusc_to_lat(text):
+def yusclat_to_lat(text):
     """
-    Converts YUSCII text to sr-latin script.
+    Converts YUSCII latin text to sr-latin script.
 
     :param text: string
     :return: string
     """
-    dic = {'~': 'č',
-           '}': 'ć',
-           '{': 'š',
-           '`': 'ž',
-           '|': 'đ',
-           '^': 'Č',
-           ']': 'Ć',
-           '[': 'Š',
-           '@': 'Ž',
-           '\\': 'Đ'
-           }
+    dic = {
+        '~': 'č',
+        '}': 'ć',
+        '{': 'š',
+        '`': 'ž',
+        '|': 'đ',
+        '^': 'Č',
+        ']': 'Ć',
+        '[': 'Š',
+        '@': 'Ž',
+        '\\': 'Đ'
+    }
+    for key in dic.keys():
+        text = text.replace(key, dic[key])
+    return text
+
+
+def yusccyr_to_lat(text):
+    """
+    Converts YUSCII cyrillic text to sr-latin script.
+
+    :param text: string
+    :return: string
+    """
+    dic = {
+        '~': 'č',
+        '}': 'ć',
+        '{': 'š',
+        '`': 'ž',
+        '|': 'đ',
+        '^': 'Č',
+        ']': 'Ć',
+        '[': 'Š',
+        '@': 'Ž',
+        '\\': 'Đ',
+        'w': 'nj',
+        'W': 'Nj',
+        'q': 'lj',
+        'Q': 'Lj'
+    }
     for key in dic.keys():
         text = text.replace(key, dic[key])
     return text
