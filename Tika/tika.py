@@ -8,9 +8,10 @@ tika.initVM()
 
 def extract_text(file):
     """
-    Extract text from a file usinf Apache Tika software which runs on Java. Requires Java runtime to be installed.
+    Extract text from a file using Apache Tika software which runs on Java. Requires Java runtime to be installed. Reads
+    different file formats like .pdf, .doc, .docx, etc.
 
-    :param file: string (Path to file)
+    :param file: string (Path to file to read)
     :return: string (Extracted text)
     """
     text = parser.from_file(file)['content']
