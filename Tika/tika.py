@@ -1,5 +1,6 @@
 import tika
 from tika import parser
+import re
 
 # Initializes Java Virtual Machine in order to run Tika server.
 tika.initVM()
@@ -12,4 +13,7 @@ def extract_text(file):
     :param file: string (Path to file)
     :return: string (Extracted text)
     """
-    return parser.from_file(file)['content']
+    text = parser.from_file(file)['content']
+    text = text.strip('\n')
+    text = re.sub(r'PAGE\s*[\r\n]+\d+]', '', text)
+    return text
