@@ -17,4 +17,5 @@ def extract_text(file):
     text = parser.from_file(file)['content']
     text = text.strip('\n')
     text = re.sub(r'PAGE\s*[\r\n]+\d+]', '', text)
+    text = re.sub(r'[\r\n]+]', '\n', text)
     return text
