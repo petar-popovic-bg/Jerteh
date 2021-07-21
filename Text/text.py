@@ -1,4 +1,6 @@
 # Operations on raw text (string) data
+import re
+
 
 def strip_xml(text):
     """
@@ -10,6 +12,18 @@ def strip_xml(text):
     # TODO: Implement xml stripping
 
     pass
+    return text
+
+
+def strip_newlines(text):
+    """
+    Strips leading, tailing, and mid multiple newline characters.
+
+    :param text: string
+    :return: string
+    """
+    text = text.strip('\n')
+    text = re.sub(r'[\r\n]+', '\n', text)
     return text
 
 
