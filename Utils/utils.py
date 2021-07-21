@@ -4,6 +4,27 @@ import shutil
 import csv
 
 
+def read_text_file(file):
+    """
+    Tries to read file with different encodings in following order: utf-8, utf-16-le, latin1
+
+    :param file: string (Path to file)
+    :return: string (decoded text)
+    """
+    try:
+        with open(file, 'r', encoding='utf-8') as f:
+            text = f.read()
+    except UnicodeDecodeError:
+        try:
+            with open(file, 'r', encoding='utf-16-le') as f:
+                text = f.read()
+        except UnicodeDecodeError:
+            with open(file, 'r', encoding='latin1') as f:
+                text = f.read()
+
+    return text
+
+
 def get_files_from_dir(dir_path, recursion=False, filter_ext=None):
     """
     Returns the list of filepaths in directory. For digging into subfolders use recursion param.
