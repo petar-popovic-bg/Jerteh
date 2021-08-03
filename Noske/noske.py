@@ -1,5 +1,6 @@
 # Functions for processing files for NoSketch Engine
 from xml.etree import ElementTree
+from Utils.utils import csv_to_dict
 
 
 def create_doc(text, identifier, meta):
@@ -31,3 +32,28 @@ def compile_vertical(docs):
         doc_txt = ElementTree.tostring(doc, encoding='unicode')
         vertical = vertical + doc_txt + '\n'
     return vertical
+
+
+def update_vertical_meta(vertical, update_with, match_by):
+    """
+    Update compiled vertical file doc attributes with new metadata. Creates new file
+
+    :param vertical: string (path to vertical file)
+    :param update_with: string (path to file with metadata to update from)
+    :param match_by: string (attribut key to match docs)
+    """
+    with open(vertical) as f:
+        xml_object = ElementTree.fromstringlist(['<root>', f.read(), '</root>'])
+    new_meta = csv_to_dict(update_with)
+
+    with open(vertical[:-3] + '_new.xml', 'w') as g:
+        for idx, doc in enumerate(xml_object):
+            new_doc_meta = next((item for item in new_meta if item[match_by] == doc.attrib[match_by]), None)
+            if new_doc_meta is not None:
+                for key, value in new_doc_meta.items():
+                    if value is None:
+                        new_doc_meta[key] = ''
+                doc.attrib.update(new_doc_meta)
+            doc_str = ElementTree.tostring(doc, encoding='unicode')
+            g.write(doc_str)
+            g.flush()
