@@ -34,19 +34,20 @@ def compile_vertical(docs):
     return vertical
 
 
-def update_vertical_meta(vertical, update_with, match_by):
+def update_vertical_meta(vertical, update_with, match_by, new_vertical):
     """
     Update compiled vertical file doc attributes with new metadata. Creates new file
 
     :param vertical: string (path to vertical file)
     :param update_with: string (path to file with metadata to update from)
     :param match_by: string (attribut key to match docs)
+    :param new_vertical: string (path to vertical file)
     """
     with open(vertical) as f:
         xml_object = ElementTree.fromstringlist(['<root>', f.read(), '</root>'])
     new_meta = csv_to_dict(update_with)
 
-    with open(vertical[:-3] + '_new.xml', 'w') as g:
+    with open(new_vertical, 'w') as g:
         for idx, doc in enumerate(xml_object):
             new_doc_meta = next((item for item in new_meta if item[match_by] == doc.attrib[match_by]), None)
             if new_doc_meta is not None:
