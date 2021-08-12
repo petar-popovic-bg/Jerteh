@@ -3,6 +3,7 @@ import os
 import sys
 import shutil
 from config import unitex_dir
+from Utils.utils import read_text_file
 
 """
 USAGE:
@@ -43,13 +44,18 @@ class Unitex:
             print(str(e))
             return False
 
-    def get_stats(self, file):
+    def get_stats(self, file=None, text=None):
         """
-        Retrieves results of processing the text compiled in a dictionary.
+        Retrieves results of processing the text compiled to a dictionary.
 
+        :param file: string (Path to file)
+        :param text: string (Text to analyze)
         :return: dic
         """
-
+        if text is not None:
+            file = os.path.join(os.getcwd(), 'utx_tmp.txt')
+            with open(file, 'w') as f:
+                f.write(text)
         _filepath, file_extension = os.path.splitext(file)
         snt_dir = _filepath + '_snt'
         snt_f = _filepath + '.snt'
@@ -129,23 +135,30 @@ class Unitex:
 
             return stats
 
-    def add_sentence_xml(self, file):
+    def add_sentence_xml(self, file=None, text=None):
         """
-        Adds <s> tag at the beggining of the sentance and </s> tag at the end.
+        Adds <s> and </s> xml tags at the beggining and the end of the sentence. Method returns modified text.
 
-        :param file: string
-        :return: string
+        :param file: string (Path to file)
+        :param text: string (Text to modify)
+        :return: string (Modified text)
         """
+
+        if text is not None:
+            file = os.path.join(os.getcwd(), 'utx_tmp.txt')
+            with open(file, 'w') as f:
+                f.write(text)
         _filepath, file_extension = os.path.splitext(file)
         snt_dir = _filepath + '_snt'
         snt_f = _filepath + '.snt'
 
+        os.system('mkdir "%s"' % snt_dir)
         os.system('%s/App/UnitexToolLogger Normalize "%s" -r"%s/%s/Norm.txt" --output_offsets="%s/normalize.out.offsets'
                   '" -qutf-no-bom' % (self.UNITEX_DIR, file, self.UNITEX_DIR, self.lang, snt_dir))
 
         os.system('%s/App/UnitexToolLogger Fst2Txt -t"%s" "%s/%s/Graphs/Preprocessing/Sentence/Sentence-xml-ELTeC.fst2"'
                   ' -a"%s/%s/Alphabet.txt" -M --input_offsets="%s/normalize.out.offsets" --output_offsets="%s/normalize'
-                  '.out.offsets" -qutf8-no-bom' % (self.UNITEX_DIR, file, self.UNITEX_DIR, self.lang, self.UNITEX_DIR,
+                  '.out.offsets" -qutf8-no-bom' % (self.UNITEX_DIR, snt_f, self.UNITEX_DIR, self.lang, self.UNITEX_DIR,
                                                    self.lang, snt_dir, snt_dir))
 
         os.system('%s/App/UnitexToolLogger Grf2Fst2 "%s/%s/Graphs/Preprocessing/Replace/Replace.grf" -y --alphabet="%s'
@@ -154,18 +167,15 @@ class Unitex:
 
         os.system('%s/App/UnitexToolLogger Fst2Grf2 -t"%s" "%s/%s/Graphs/Preprocessing/Replace/Replace.fst2" -a"%s/%s/'
                   'Aplhabet.txt" -R --input_offsets="%s/normalize.out.offsets" --output_offsets="%s/normalize.out.'
-                  'offsets" -qutf8-no-bom' % (self.UNITEX_DIR, file, self.UNITEX_DIR, self.lang, self.UNITEX_DIR,
+                  'offsets" -qutf8-no-bom' % (self.UNITEX_DIR, snt_f, self.UNITEX_DIR, self.lang, self.UNITEX_DIR,
                                               self.lang, snt_dir, snt_dir))
 
         os.system('%s/App/UnitexToolLogger Tokenize "%s" -a"%s/%s/Alphabet.txt" --input_offsets="%s/normalize.out.'
                   'offsets" --output_offsets="%s/tokenize.out.offsets" -qutf8-no-bom' % (self.UNITEX_DIR, snt_f,
                                                                                          self.UNITEX_DIR, self.lang,
                                                                                          snt_dir, snt_dir))
-        with open(snt_f, 'r', encoding='utf-8') as f:
-            text = f.read()
-
+        text = read_text_file(snt_f)
         self.cleanup(snt_dir, snt_f)
-
         return '<s>' + text + '</s>'
 
 
