@@ -5,6 +5,8 @@ This package provides utility classes and static methods for Python that make us
 ###### Linux
 1. pip: `pip install -e git+https://github.com/petar-popovic-bg/Jerteh.git#egg=Jerteh`
 
+   *update*: `pip install -e git+https://github.com/petar-popovic-bg/Jerteh.git#egg=Jerteh --upgrade`
+
 2. Edit your *treetaggerwrapper.py* file inside your virtual environment, so the wrapper supports Serbian-latin and Serbian-cyrillic script.
     ```python
    """
