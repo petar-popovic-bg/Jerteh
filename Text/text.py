@@ -2,17 +2,37 @@
 import re
 
 
-def strip_xml(text):
+def strip_xml(text, erase_newlines=True):
     """
     Strip xml annotation from text string.
 
     :param text: string
+    :param erase_newlines: Boolean
     :return: string
     """
-    # TODO: Implement xml stripping
+    if erase_newlines:
+        control = 12
+    else:
+        control = 11
 
-    pass
-    return text
+    mpa = dict.fromkeys(range(0, control), " ")
+    mpa.update(dict.fromkeys(range(12, 32), " "))
+    text = text.translate(mpa)
+    text = text.replace('<', '\n<').replace('>', '>\n')
+    text = re.sub(r' +', ' ', text)
+    text = re.sub(r'\n+', '\n', text)
+    text = text.replace('\n \n', '\n').replace(' \n ', '\n')
+    text = re.sub(r'\n+', '\n', text)
+
+    text_lines = text.split('\n')
+
+    del text
+    for idx, line in enumerate(text_lines):
+        if re.match(r'^.<!--.$|^.-->.$|^.<.>.*$', line):
+            if line not in ['<seg>', '</seg>', '<p>', '</p>']:
+                del text_lines[idx]
+
+    return '\n'.join(text_lines)
 
 
 def strip_newlines(text):
