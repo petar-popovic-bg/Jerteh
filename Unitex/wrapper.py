@@ -135,12 +135,13 @@ class Unitex:
 
             return stats
 
-    def add_sentence_xml(self, file=None, text=None):
+    def s_tag_text(self, file=None, text=None, is_xml=False):
         """
         Adds <s> and </s> xml tags at the beggining and the end of the sentence. Method returns modified text.
 
         :param file: string (Path to file)
         :param text: string (Text to modify)
+        :param is_xml: Boolean (Is file or text xml or text)
         :return: string (Modified text)
         """
 
@@ -176,7 +177,10 @@ class Unitex:
                                                                                          snt_dir, snt_dir))
         text = read_text_file(snt_f)
         self.cleanup(snt_dir, snt_f)
-        return '<s>' + text + '</s>'
+        if is_xml:
+            return text
+        else:
+            return '<s>' + text + '</s>'
 
 
 if __name__ == '__main__':

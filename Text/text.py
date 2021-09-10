@@ -2,12 +2,28 @@
 import re
 
 
-def strip_xml(text, erase_newlines=True):
+def convert_xml(tree, translator):
     """
-    Strip xml annotation from text string.
+    Iterates over xml tree and executes translator function on text nodes.
+
+    :param tree: ElementTree
+    :param translator: func (cyr_to_lat, asc_to_lat, ...)
+    :return: ElementTree
+    """
+    for elem in tree.iter():
+        if elem.text is not None:
+            elem.text = translator(elem.text)
+
+    return tree
+
+
+def strip_xml(text, erase_newlines=True, save_tags=None):
+    """
+    Strip xml annotation from a text string.
 
     :param text: string
     :param erase_newlines: Boolean
+    :param save_tags List ['<p>', '</p>', '<seg>', '</seg>', ...]
     :return: string
     """
     if erase_newlines:
@@ -27,12 +43,23 @@ def strip_xml(text, erase_newlines=True):
     text_lines = text.split('\n')
 
     del text
-    for idx, line in enumerate(text_lines):
-        if re.match(r'^.<!--.$|^.-->.$|^.<.>.*$', line):
-            if line not in ['<seg>', '</seg>', '<p>', '</p>']:
-                del text_lines[idx]
 
-    return '\n'.join(text_lines)
+    novi_text_lines = []
+
+    if save_tags is not None:
+        for idx, line in enumerate(text_lines):
+            if re.match(r'^.*<!--.*$|^.*-->.*$|^.*<.*>.*$', line) and line not in save_tags:
+                pass
+            else:
+                novi_text_lines.append(text_lines[idx])
+    else:
+        for idx, line in enumerate(text_lines):
+            if re.match(r'^.*<!--.*$|^.*-->.*$|^.*<.*>.*$', line):
+                pass
+            else:
+                novi_text_lines.append(text_lines[idx])
+
+    return '\n'.join(novi_text_lines)
 
 
 def strip_newlines(text):
