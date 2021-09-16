@@ -178,9 +178,9 @@ class Unitex:
         text = read_text_file(snt_f)
         self.cleanup(snt_dir, snt_f)
         if is_xml:
-            return text
+            return '<data>' + text + '</data>
         else:
-            return '<s>' + text + '</s>'
+            return '<data><s>' + text + '</s></data>'
 
 
 if __name__ == '__main__':
