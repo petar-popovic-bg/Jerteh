@@ -123,13 +123,16 @@ class Unitex:
             unique_digits = stats_reg.group(4).split(' ')[1][1:-1]
             word_count = int(simple_forms.split(' ')[0])
             if word_count != 0:
-                err_percent = 100/word_count * int(err_n)
+                unique_err_p = int(err_n) * 100 / int(unique_simple_forms)
+                err_p = 'tbd'
+                # 'iz err fajla naci frekvenciju u fajlu tok_by_freq.txt i sabrati - to ej ukupan broj gresaka.' \
+                # 'Taj broj * 100 / simple_forms'
             else:
-                err_percent = 100
+                unique_err_p = 100
 
             stats = {'sent_del': sent_del, 'tokens': tokens, 'unique_tokens': unique_tokens,
                      'simple_forms': simple_forms, 'unique_simple_forms': unique_simple_forms, 'digits': digits,
-                     'unique_digits': unique_digits, 'err_n': err_n, 'err_percent': round(err_percent, 2)}
+                     'unique_digits': unique_digits, 'err_n': err_n, 'unique_err_p': round(unique_err_p, 2)}
 
             self.cleanup(snt_dir, snt_f)
 
