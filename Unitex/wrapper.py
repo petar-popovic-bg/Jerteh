@@ -124,15 +124,30 @@ class Unitex:
             word_count = int(simple_forms.split(' ')[0])
             if word_count != 0:
                 unique_err_p = int(err_n) * 100 / int(unique_simple_forms)
-                err_p = 'tbd'
+                err_count = 0
+                with open(snt_dir + '/err', 'r') as f:
+                    errors = f.read().split('\n')
+                with open(snt_dir + '/tok_by_freq.txt', 'r') as f:
+                    lines = f.read().split('\n')
+                    for line in lines:
+                        lst = line.strip().split('\t')
+                        try:
+                            if lst[1] in errors:
+                                err_count = err_count + int(lst[0])
+                        except Exception as e:
+                            continue
+                err_p = err_count * 100 / int(simple_forms)
+
                 # 'iz err fajla naci frekvenciju u fajlu tok_by_freq.txt i sabrati - to ej ukupan broj gresaka.' \
                 # 'Taj broj * 100 / simple_forms'
             else:
                 unique_err_p = 100
+                err_p = 100
 
             stats = {'sent_del': sent_del, 'tokens': tokens, 'unique_tokens': unique_tokens,
                      'simple_forms': simple_forms, 'unique_simple_forms': unique_simple_forms, 'digits': digits,
-                     'unique_digits': unique_digits, 'err_n': err_n, 'unique_err_p': round(unique_err_p, 2)}
+                     'unique_digits': unique_digits, 'err_n': err_n, 'unique_err_p': str(round(unique_err_p, 2)),
+                     'err_p': str(round(err_p, 2))}
 
             self.cleanup(snt_dir, snt_f)
 
@@ -181,7 +196,7 @@ class Unitex:
         text = read_text_file(snt_f)
         self.cleanup(snt_dir, snt_f)
         if is_xml:
-            return '<data>' + text + '</data>
+            return '<data>' + text + '</data>'
         else:
             return '<data><s>' + text + '</s></data>'
 
