@@ -8,7 +8,8 @@ setup(
         'six==1.16.0',
         'treetaggerwrapper==2.3',
         'tika~=1.24',
-        'setuptools~=57.0.0'
+        'setuptools~=57.0.0',
+        'humanize'
     ],
     url='https://github.com/petar-popovic-bg/Jerteh',
     license='GPL',
