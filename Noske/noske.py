@@ -9,7 +9,7 @@ def create_doc(text, identifier, meta):
 
     :param text: string
     :param identifier: int
-    :param meta: dic
+    :param meta: dict
     :return: XML Element
     """
     meta['n'] = str(identifier + 1)
@@ -17,6 +17,23 @@ def create_doc(text, identifier, meta):
         meta[key] = str(meta[key])
     doc = ElementTree.Element('doc', meta)
     doc.text = '\n' + text.strip('\n') + '\n'
+    return doc
+
+
+def create_doc_from_xml(root_elem, identifier, meta):
+    """
+    Enclose xml root (<data>...</data>) and inject metadata into doc element.
+
+    :param root_elem: XML Element root element containing data (p, seg, header, ...)
+    :param identifier: int
+    :param meta: dict metadata to insert into doc
+    :return: XML Element
+    """
+    meta['n'] = str(identifier + 1)
+    for key in meta.keys():
+        meta[key] = str(meta[key])
+    doc = ElementTree.Element('doc', meta)
+    doc.append(root_elem)
     return doc
 
 
