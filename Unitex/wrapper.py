@@ -39,6 +39,8 @@ class Unitex:
         try:
             shutil.rmtree(snt_dir)
             os.remove(snt_f)
+            if os.path.isfile(os.path.join(os.getcwd(), 'utx_tmp.txt')):
+                os.remove(os.path.join(os.getcwd(), 'utx_tmp.txt'))
             return True
         except Exception as e:
             print(str(e))
