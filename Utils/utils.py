@@ -120,3 +120,31 @@ def csv_to_dict(csv_file, delimiter='\t'):
         meta = [{k: v for k, v in row.items()} for row in csv.DictReader(f, delimiter=delimiter)]
 
     return meta
+
+
+def lod_to_csv(lod, delimiter='\t'):
+    """
+    Returns string csv file.
+
+    :param dict: list of (flat) dictionary objects
+    :param delimiter: string (collumn delimiter, tab default)
+    :return: string
+    """
+    keys = []
+    for item in lod:
+        for key in item.keys():
+            if key not in keys:
+                keys.append(key)
+
+    for item in lod:
+        for key in keys:
+            if key not in item.keys():
+                item[key] = ''
+
+    header = sorted(keys)
+    lines = []
+    for item in lod:
+        i_keys = sorted(item.keys())
+        lines.append(delimiter.join([str(item[key]) for key in i_keys]))
+
+    return delimiter.join(header) + '\n' + '\n'.join(lines)
