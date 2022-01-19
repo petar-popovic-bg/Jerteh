@@ -75,7 +75,7 @@ def strip_newlines(text):
 
 
 def clean_for_xml_parser(text):
-    text = text.repalce('&', '&amp;')
+    text = text.replace('&', '&amp;')
     text = text.replace('<', '&lt;')
     text = text.replace('>', '&gt;')
     return text
