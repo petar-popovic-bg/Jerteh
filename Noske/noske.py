@@ -1,5 +1,6 @@
 # Functions for processing files for NoSketch Engine
 from xml.etree import ElementTree
+from xml.etree.ElementTree import Element
 from Utils.utils import csv_to_dict
 
 
@@ -75,3 +76,11 @@ def update_vertical_meta(vertical, update_with, match_by, new_vertical):
             doc_str = ElementTree.tostring(doc, encoding='unicode')
             g.write(doc_str)
             g.flush()
+
+
+def get_doc_meta(doc: Element):
+    return doc.attrib
+
+
+def update_doc_meta(doc: Element, new_meta: dict) -> None:
+    doc.attrib.update(new_meta)
